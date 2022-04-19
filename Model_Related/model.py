@@ -25,7 +25,7 @@ import torch
 import pytorch_lightning as pl
 import glob
 import os
-from Data_Related import Split_TrTs
+from Data_Related import Get_TrTs, Split_TVT
 from .process import train_trans, val_transforms, test_transforms, post_pred, post_label, draw_transform, \
     KeepLargestConnectedComponent
 
@@ -33,23 +33,6 @@ from .process import train_trans, val_transforms, test_transforms, post_pred, po
 class basemodule(pl.LightningModule):
     def __init__(self, model, args):
         super().__init__()
-        # self.out_total_csv_path = None
-        # self.scheduler = None
-        # self.optimizer = None
-        # self.test_ds = None
-        # self.val_ds = None
-        # self.train_ds = None
-        # self.loss_function = None
-        # self.KeepLargestConnectedComponent = None
-        # self.draw = None
-        # self.post_label = None
-        # self.post_pred = None
-        # self.metric_list = []
-        # self.recall_metric = None
-        # self.precision_metric = None
-        # self.sd_metric = None
-        # self.hd_metric = None
-        # self.dice_metric = None
         if model is None:
             Warning("No model is passed in, using UNet to continue")
             self._model = UNet(
@@ -137,9 +120,10 @@ class basemodule(pl.LightningModule):
         return self._model(x)
 
     def prepare_data(self):
-        train_dict = Split_TrTs(self.data_dir, 'Tr')
-        val_dict = Split_TrTs(self.data_dir, 'Ts')
-        test_dict = val_dict
+        # train_dict = Split_TrTs(self.data_dir, 'Tr')
+        # val_dict = Split_TrTs(self.data_dir, 'Ts')
+        # test_dict = val_dict
+        train_dict, val_dict, test_dict = Split_TVT(self.data_dir, 0.7, 0.2)
 
         # 确定transform
         train_transforms = train_trans(self.roi_size)

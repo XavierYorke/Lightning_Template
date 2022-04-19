@@ -1,4 +1,4 @@
-name: test
+name: dev-ias
 output_dir: outputs
 
 pl_cfg:
@@ -11,7 +11,7 @@ model_cfg:
   seed: 1228
   loss_function_type : DiceLoss
   batch_size : 1
-  data_dir : E:/GLX/Projects/MICCAI2022/Dataset
+  data_dir : E:/GLX/Datasets/Aneurysm/S/one
   optimizer_type : "Novograd"
   classes : 1
   learning_rate : 0.001

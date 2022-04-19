@@ -17,7 +17,11 @@ def train_trans(roi_size):
     train_transforms = Compose([
         LoadImaged(keys=["image", "label"]),
         AddChanneld(keys=["image", "label"]),
-        ScaleIntensityd(keys=["image"], minv=0, maxv=1.0),
+        ScaleIntensityRanged(
+            keys=["image"], a_min=50, a_max=350,
+            b_min=0.0, b_max=1.0, clip=True,
+        ),
+        # ScaleIntensityd(keys=["image"], minv=0, maxv=1.0),
         RandCropByPosNegLabeld(keys=["image", "label"], pos=1, neg=1, num_samples=2, label_key="label",
                                spatial_size=roi_size),
         EnsureTyped(keys=["image", "label"]),
@@ -28,7 +32,11 @@ def train_trans(roi_size):
 val_transforms = Compose([
     LoadImaged(keys=["image", "label"]),
     AddChanneld(keys=["image", "label"]),
-    ScaleIntensityd(keys=["image"], minv=0, maxv=1.0),
+    ScaleIntensityRanged(
+        keys=["image"], a_min=50, a_max=350,
+        b_min=0.0, b_max=1.0, clip=True,
+    ),
+    # ScaleIntensityd(keys=["image"], minv=0, maxv=1.0),
 
     EnsureTyped(keys=["image", "label"])
 ])
@@ -36,7 +44,11 @@ val_transforms = Compose([
 test_transforms = Compose([
     LoadImaged(keys=["image", "label"]),
     AddChanneld(keys=["image", "label"]),
-    ScaleIntensityd(["image"], minv=0, maxv=1.0),
+    ScaleIntensityRanged(
+        keys=["image"], a_min=50, a_max=350,
+        b_min=0.0, b_max=1.0, clip=True,
+    ),
+    # ScaleIntensityd(["image"], minv=0, maxv=1.0),
     EnsureTyped(keys=["image", "label"])
 ])
 
