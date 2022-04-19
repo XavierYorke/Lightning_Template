@@ -1,0 +1,21 @@
+name: test
+output_dir: outputs
+
+pl_cfg:
+  epochs : 50
+  mode: train
+  resume: False
+  ckpt_path: None
+
+model_cfg:
+  seed: 1228
+  loss_function_type : DiceLoss
+  batch_size : 1
+  data_dir : E:/GLX/Projects/MICCAI2022/Dataset
+  optimizer_type : "Novograd"
+  classes : 1
+  learning_rate : 0.001
+  roi_size : [192, 192, 64]
+  sw_batch_size : 8
+  two_stage: False
+
